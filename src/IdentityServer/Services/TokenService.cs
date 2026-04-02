@@ -37,7 +37,7 @@ public class TokenService
         var userClaims = await _userManager.GetClaimsAsync(user);
         claims.AddRange(userClaims);
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"] ?? "super-secret-key-that-is-at-least-32-chars-long!!"));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"] ?? "CHANGE-ME-in-production-use-env-var-or-key-vault"));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var expiresAt = DateTime.UtcNow.AddMinutes(int.Parse(_config["Jwt:AccessTokenLifetimeMinutes"] ?? "60"));
 
@@ -65,7 +65,7 @@ public class TokenService
 
     public ClaimsPrincipal? ValidateToken(string token)
     {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"] ?? "super-secret-key-that-is-at-least-32-chars-long!!"));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Secret"] ?? "CHANGE-ME-in-production-use-env-var-or-key-vault"));
 
         try
         {

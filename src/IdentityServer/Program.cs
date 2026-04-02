@@ -43,7 +43,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddDefaultTokenProviders();
 
 // JWT Authentication
-var jwtSecret = builder.Configuration["Jwt:Secret"] ?? "super-secret-key-that-is-at-least-32-chars-long!!";
+var jwtSecret = builder.Configuration["Jwt:Secret"] ?? "CHANGE-ME-in-production-use-env-var-or-key-vault";
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -92,6 +92,7 @@ using (var scope = app.Services.CreateScope())
             FullName = "System Admin",
             EmailConfirmed = true,
         };
+        // DEMO ONLY — change in production
         await userManager.CreateAsync(admin, "Admin123!");
         await userManager.AddToRolesAsync(admin, new[] { "Admin", "User" });
     }
