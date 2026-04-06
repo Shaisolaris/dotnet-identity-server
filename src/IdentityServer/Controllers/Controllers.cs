@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 namespace IdentityServer.Controllers;
 
 using IdentityServer.Models;
@@ -103,7 +104,7 @@ public class AuthController : ControllerBase
     [HttpPost("logout")]
     public async Task<IActionResult> Logout()
     {
-        var userId = User.FindFirst(System.Security.Claims.JwtRegisteredClaimNames.Sub)?.Value;
+        var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
         if (userId != null)
         {
             var tokens = await _db.RefreshTokens
@@ -120,7 +121,7 @@ public class AuthController : ControllerBase
     [HttpPost("change-password")]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
     {
-        var userId = User.FindFirst(System.Security.Claims.JwtRegisteredClaimNames.Sub)?.Value;
+        var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
         var user = await _userManager.FindByIdAsync(userId!);
         if (user == null) return NotFound();
 
@@ -155,7 +156,7 @@ public class UsersController : ControllerBase
     [HttpGet("me")]
     public async Task<ActionResult<UserInfoResponse>> GetMe()
     {
-        var userId = User.FindFirst(System.Security.Claims.JwtRegisteredClaimNames.Sub)?.Value;
+        var userId = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
         var user = await _userManager.FindByIdAsync(userId!);
         if (user == null) return NotFound();
 
