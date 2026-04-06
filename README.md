@@ -1,5 +1,7 @@
 # dotnet-identity-server
 
+![CI](https://github.com/Shaisolaris/dotnet-identity-server/actions/workflows/ci.yml/badge.svg)
+
 ASP.NET Core 8 identity server implementing OAuth2/OpenID Connect patterns with JWT access tokens, refresh token rotation, role-based authorization, ASP.NET Core Identity for user management, account lockout, password policies, OpenID discovery endpoint, and pre-configured OAuth clients.
 
 ## Stack
